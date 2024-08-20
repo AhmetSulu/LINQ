@@ -1,35 +1,53 @@
-﻿// Rastgele sayılar üretmek için Random sınıfı kullanılıyoruz
-Random random = new Random();
-List<int> numbers = new List<int>();
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-// 10 adet rastgele sayı oluşturuluyor
-for (int i = 0; i < 10; i++)
+class Program
 {
-    numbers.Add(random.Next(-30, 30)); // -30 ile 30 arasında rastgele sayılar üretiyoruz
+    static void Main()
+    {
+        // Rastgele sayılar üreten bir nesne oluşturuyoruz
+        Random random = new Random();
+        List<int> numbers = new List<int>();
+
+        // Listeye rastgele 10 adet sayı ekliyoruz (örnek olarak -50 ile 50 arasında)
+        for (int i = 0; i < 10; i++)
+        {
+            numbers.Add(random.Next(-50, 51));
+        }
+
+        // Listeyi ekrana yazdırıyoruz
+        Console.WriteLine("Rastgele Sayılar:");
+        numbers.ForEach(number => Console.WriteLine(number));
+
+        // Çift sayıları yazdırıyoruz
+        var evenNumbers = numbers.Where(x => x % 2 == 0);
+        Console.WriteLine("\nÇift Sayılar:");
+        evenNumbers.ToList().ForEach(number => Console.WriteLine(number));
+
+        // Tek sayıları yazdırıyoruz
+        var oddNumbers = numbers.Where(x => x % 2 != 0);
+        Console.WriteLine("\nTek Sayılar:");
+        oddNumbers.ToList().ForEach(number => Console.WriteLine(number));
+
+        // Negatif sayıları yazdırıyoruz
+        var negativeNumbers = numbers.Where(x => x < 0);
+        Console.WriteLine("\nNegatif Sayılar:");
+        negativeNumbers.ToList().ForEach(number => Console.WriteLine(number));
+
+        // Pozitif sayıları yazdırıyoruz
+        var positiveNumbers = numbers.Where(x => x > 0);
+        Console.WriteLine("\nPozitif Sayılar:");
+        positiveNumbers.ToList().ForEach(number => Console.WriteLine(number));
+
+        // 15'ten büyük ve 22'den küçük sayıları yazdırıyoruz
+        var filteredNumbers = numbers.Where(x => x > 15 && x < 22);
+        Console.WriteLine("\n15'ten Büyük ve 22'den Küçük Sayılar:");
+        filteredNumbers.ToList().ForEach(number => Console.WriteLine(number));
+
+        // Her bir sayının karesini hesaplıyoruz ve yeni bir liste oluşturuyoruz
+        var squaredNumbers = numbers.Select(x => x * x).ToList();
+        Console.WriteLine("\nHer Bir Sayının Karesi:");
+        squaredNumbers.ForEach(number => Console.WriteLine(number));
+    }
 }
-// Rastgele seçilen sayıları yazdırıyor
-Console.WriteLine("Rastgele Sayılar: " + string.Join(", ", numbers));
-
-// Çift olan sayıları yazdırıyor
-var evenNumbers = numbers.Where(n => n % 2 == 0).ToList();
-Console.WriteLine("Çift Sayılar: " + string.Join(", ", evenNumbers));
-
-// Tek olan sayıları yazdırıyor
-var oddNumbers = numbers.Where(n => n % 2 != 0).ToList();
-Console.WriteLine("Tek Sayılar: " + string.Join(", ", oddNumbers));
-
-// Negatif sayıları yazdırıyor
-var negativeNumbers = numbers.Where(n => n < 0).ToList();
-Console.WriteLine("Negatif Sayılar: " + string.Join(", ", negativeNumbers));
-
-// Pozitif sayıları yazdırıyor
-var positiveNumbers = numbers.Where(n => n > 0).ToList();
-Console.WriteLine("Pozitif Sayılar: " + string.Join(", ", positiveNumbers));
-
-// 15'ten büyük ve 22'den küçük sayıları yazdırıyor
-var filteredNumbers = numbers.Where(n => n > 15 && n < 22).ToList();
-Console.WriteLine("15'ten Büyük ve 22'den Küçük Sayılar: " + string.Join(", ", filteredNumbers));
-
-// Listedeki her bir sayının karesini yazdırıyor (Yeni bir liste oluşturuluyor)
-var squaredNumbers = numbers.Select(n => n * n).ToList();
-Console.WriteLine("Sayının Karesi: " + string.Join(", ", squaredNumbers));
